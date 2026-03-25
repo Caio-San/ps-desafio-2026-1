@@ -12,6 +12,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 });
 
+
+Route::get("/category", [\App\Http\Controllers\CategoryController::class, 'index']);
+
+Route::post("/category", [\App\Http\Controllers\CategoryController::class, 'store']);
+
+
+Route::get("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'show']);
+
+Route::put("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'update']);
+
+Route::delete("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'destroy']);
+
 Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 });
