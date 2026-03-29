@@ -11,7 +11,7 @@ class UpdateArtigoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateArtigoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'string|min:3|max:255',
+            'brand' => 'string|min:3|max:255',
+            'price' => 'numeric|min:0',
+            'year' => 'integer',
+            'image' => 'file',
+            'amount' => 'integer|min:0',
+            'category_id' => '',
         ];
     }
 }

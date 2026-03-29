@@ -16,8 +16,21 @@ class ArtigoFactory extends Factory
      */
     public function definition(): array
     {
+            
+        $category = \App\Models\Category::inRandomOrder()->first();
+
+        $articleName = fake()->words(3, true); 
+
         return [
-            //
+            'name'        => $articleName,
+            'brand'       => fake()->company(),
+            'price'       => fake()->randomFloat(2, 50, 1500),
+            'year'        => fake()->year(),
+
+            'image'       => fake()->imageUrl(800, 600, 'sports', true, $articleName),
+
+            'amount'      => fake()->numberBetween(1, 100),
+            'category_id' => $category->id,
         ];
     }
 }

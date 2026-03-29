@@ -16,4 +16,17 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function artigos() {
+        return $this->hasMany(Artigo::class, 'category_id', 'id');
+    }
+
+    protected static function booted()
+    {
+        self::deleting(function (Category $category) {
+            foreach ($category->artigos as $artigo) {
+                $artigo->delete();
+            }
+        });
+    }
 }

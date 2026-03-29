@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('artigos', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('brand');
+            $table->float('price');
+            $table->integer('year');
+            $table->string('image')->nullable();
+            $table->integer('amount');
+            $table->foreignUuid('category_id')->constrained('categories');
             $table->timestamps();
         });
     }

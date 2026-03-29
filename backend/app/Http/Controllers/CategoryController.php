@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
         $categories = $this->category->all();
-        return response()->json($categories, Response::HTTP_OK);
+        return response()->json($categories->load('artigos'), Response::HTTP_CREATED);
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $category = $this->category->create($data);
-        return response()->json($category, Response::HTTP_CREATED);
+        return response()->json($category->load('artigos'), Response::HTTP_CREATED);
     }
 
     /**
@@ -60,7 +60,7 @@ class CategoryController extends Controller
         $category = $this->category->findOrFail($id);
         $data = $request->validated();
         $category->update($data);
-        return response()->json($category, Response::HTTP_OK);
+        return response()->json($category->load('artigos'), Response::HTTP_CREATED);
         
     }
 

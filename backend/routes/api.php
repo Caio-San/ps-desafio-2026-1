@@ -24,6 +24,15 @@ Route::post("/category/{id}", [\App\Http\Controllers\CategoryController::class, 
 
 Route::delete("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'destroy']);
 
+
+
+Route::get("/artigo", [\App\Http\Controllers\ArtigoController::class, 'index']);
+Route::post("/artigo", [\App\Http\Controllers\ArtigoController::class, 'store']);
+Route::get("/artigo/{id}", [\App\Http\Controllers\ArtigoController::class, 'show']);
+Route::post("/artigo/{id}", [\App\Http\Controllers\ArtigoController::class, 'update']);
+Route::delete("/artigo/{id}", [\App\Http\Controllers\ArtigoController::class, 'destroy']);
+
+
 Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 });
