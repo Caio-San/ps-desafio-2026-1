@@ -20,7 +20,7 @@ Route::post("/category", [\App\Http\Controllers\CategoryController::class, 'stor
 
 Route::get("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'show']);
 
-Route::put("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'update']);
+Route::post("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'update']);
 
 Route::delete("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'destroy']);
 
