@@ -9,8 +9,8 @@ import {
   DialogDescription,
 } from '@/components/dialog'
 import FormFieldsCategory from './form-fields-category'
-import { categoryType } from '@/types/category'
-import SkeletonFormFieldsCategory from './skeleton-category'
+import { categories } from '@/types/categories'
+import SkeletonFormFieldsCategory from './form-fields-category'
 import { api } from '@/services/api'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/components/use-toast'
@@ -25,16 +25,16 @@ export function DialogInformationCategory({
   id,
   children,
 }: DialogInformationCategoryProps) {
-  const [category, setCategory] = useState<categoryType | null>(null)
+  const [category, setCategory] = useState<categories | null>(null)
   const [open, setOpen] = useState<boolean>()
   const { toast } = useToast()
 
   useEffect(() => {
     const requestData = async () => {
-      const { response } = null // requisicao para api
+      const  { response, error } = await api('GET', `/category/${id}`)
 
       if (response) {
-        setCategory(response)
+        setCategory(response as categories)
       } else {
         setCategory(null)
         toast({

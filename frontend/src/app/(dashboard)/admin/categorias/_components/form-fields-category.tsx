@@ -1,5 +1,4 @@
 'use client'
-
 import { Button } from '@/components/button'
 import {
   FormFieldsGroup,
@@ -12,12 +11,12 @@ import { Input } from '@/components/input'
 import { Label } from '@/components/label'
 import { cn } from '@/lib/utils'
 import { ResponseErrorType } from '@/services/api'
-import { categoryType } from '@/types/category'
+import { categories } from '@/types/categories'
 import { useState } from 'react'
 import { useFormStatus } from 'react-dom'
 
 interface FormFieldsCategoryProps {
-  category?: categoryType | null
+  category?: categories | null
   readOnly?: boolean
   error?: ResponseErrorType | null
 }
@@ -34,7 +33,12 @@ export default function FormFieldsCategory({
         {category && (
           <Input defaultValue={category.id} type="text" name="id" hidden />
         )}
-        {/* inserir campos do formulário */}
+        <FormField>
+          <Label htmlFor="name" required={!category}>
+            nome
+          </Label>
+          <Input name="name" id="name" placeholder="Nome da categoria" defaultValue={category?.name} disabled={pending} readOnly={readOnly} error={error?.errors?.name}  />
+        </FormField>
       </FormFieldsGroup>
       <DialogFooter className={cn({ hidden: readOnly })}>
         <Button type="submit" pending={pending}>

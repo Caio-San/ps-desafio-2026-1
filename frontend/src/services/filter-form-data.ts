@@ -22,9 +22,5 @@ export async function filterFormData(form: FormData) {
     }
   }
 
-  if (hasIdField) {
-    newFormData.append('_method', 'PUT')
-  }
-
   return newFormData
 }

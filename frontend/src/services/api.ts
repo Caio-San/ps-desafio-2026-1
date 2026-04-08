@@ -65,14 +65,21 @@ baseApi.interceptors.request.use(async (config) => {
 
 baseApi.interceptors.response.use(
   (response) => response.data,
-  async ({ response }) => {
-    if (response.status === 422) {
-      const errors = firstItemToObject(response.data.errors)
+  async (error) => {
 
-      throw new ResponseError(response.data.message, errors, response.status)
+    if (error.response) {
+      const { status, data } = error.response;
+
+      if (status === 422 && data.errors) {
+        const errors = firstItemToObject(data.errors);
+        throw new ResponseError(data.message || "Erro de validação", errors, status);
+      }
+
+      throw new ResponseError(data.message || "Erro no servidor", {}, status);
     }
 
-    throw new ResponseError(response.data.message, {}, response.status)
+  
+    throw new ResponseError("Falha na conexão com o servidor", {}, 500);
   },
 )
 
@@ -80,29 +87,39 @@ export async function api<T = unknown>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   url: string,
   config?: AxiosRequestConfig,
-): Promise<
-  | { response: T; error: undefined }
-  | { response: undefined; error: ResponseErrorType }
-> {
+) {
   try {
+   
+    const isFormData = config?.data instanceof FormData;
+
     const response = await baseApi.request<T>({
       method,
       url,
       ...config,
+      headers: {
+        ...config?.headers,
+        
+        ...(isFormData ? { 'Content-Type': 'multipart/form-data' } : {}),
+      },
     })
     return { response: response as T, error: undefined }
+  // api.ts
   } catch (e) {
-    if (
-      (e as ResponseErrorType).status === 401 ||
-      (e as ResponseErrorType).status === 403
-    ) {
-      if (isServerSide()) {
-        redirect('/auth/sign-out')
-      } else {
-        window.location.href = '/auth/sign-out'
-      }
+    const error = e as ResponseErrorType;
+
+  
+    if (error.status === 401 || error.status === 403) {
+      if (isServerSide()) redirect('/auth/sign-out');
+      else window.location.href = '/auth/sign-out';
     }
 
-    return { response: undefined, error: e as ResponseErrorType }
+    return { 
+      response: undefined, 
+      error: {
+        message: error.message || "Erro inesperado",
+        status: error.status || 500,
+        errors: error.errors || {}
+      } 
+    };
   }
 }

@@ -1,3 +1,5 @@
+'use client'
+import { Button } from '@/components/button'
 import { DashboardContainer } from '@/components/dashboard/dashboard-items'
 import {
   Table,
@@ -9,18 +11,34 @@ import {
   TableRow,
 } from '@/components/dashboard/table'
 
-import { categoryType } from '@/types/category'
-import { Button } from '@/components/button'
-import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
+import { categories } from '@/types/categories'
+import { LuPlusCircle, LuInfo, LuPen, LuTrash } from 'react-icons/lu';
 import { DialogUpdateCategory } from './dialog-update-category'
 import { DialogCategoryDelete } from './dialog-delete-category'
 import { DialogInformationCategory } from './dialog-information-category'
 import { DialogCreateCategory } from './dialog-create-category'
+import { useState , useEffect } from 'react'
+import { api } from '@/services/api'
 
-export default async function ListCategory() {
-  const { response } = null // requisicao para api
 
-  if (!response) {
+export default function ListCategory() {
+  const [categorias, setCategories] = useState<categories[]>([])
+
+  useEffect(() => {
+    async function getCategories() {
+      const { response, error } = await api('GET', '/category')
+      if (response) {
+        setCategories(response as categories[])
+      }
+      else {
+        console.error(error?.message)
+      }
+    }
+    getCategories()
+  }, [])
+  
+  
+  if (!categorias.length) {
     return (
       <DashboardContainer className="text-destructive">
         Não foi possível obter as categorias.
@@ -28,7 +46,6 @@ export default async function ListCategory() {
     )
   }
 
-  const categories: categoryType[] = response
 
   return (
     <>
@@ -49,7 +66,7 @@ export default async function ListCategory() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories?.map((category: categoryType) => (
+            {categorias?.map((category: categories) => (
               <TableRow key={category.id}>
                 <TableCell>{category.name}</TableCell>
                 <TableCell className="flex justify-end gap-2">
@@ -72,7 +89,7 @@ export default async function ListCategory() {
               </TableRow>
             ))}
           </TableBody>
-          {!categories.length && (
+          {!categorias.length &&  (
             <TableCaption>Nenhuma categoria encontrada.</TableCaption>
           )}
         </Table>

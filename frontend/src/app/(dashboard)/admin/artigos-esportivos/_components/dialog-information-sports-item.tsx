@@ -29,11 +29,15 @@ export function DialogInformationSportsItem({
   const { toast } = useToast()
 
   useEffect(() => {
+    if (!open) {
+      setSportsItem(null)
+      return
+    }
     const requestData = async () => {
-      const { response } = null
+      const { response } = await api('GET', `/artigo/${id}`)
 
       if (response) {
-        setSportsItem(response)
+        setSportsItem(response as sportsItemType)
       } else {
         setSportsItem(null)
         toast({

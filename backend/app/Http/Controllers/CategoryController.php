@@ -57,10 +57,11 @@ class CategoryController extends Controller
      */
     public function update(UpdatecategoryRequest $request, $id): JsonResponse
     {
+        
         $category = $this->category->findOrFail($id);
         $data = $request->validated();
         $category->update($data);
-        return response()->json($category->load('artigos'), Response::HTTP_CREATED);
+        return response()->json($category, Response::HTTP_OK);
         
     }
 

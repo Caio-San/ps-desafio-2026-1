@@ -1,7 +1,12 @@
 .artigos {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: grid;
+    gap: 24px;
+    font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    color: #1a1a1a;
+    text-align: center;
 }
 
 .artigo {
@@ -10,11 +15,80 @@
     gap: 10px;
     padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.artigoList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.title {
+    margin: 0 auto;
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-family: "Impact", "Arial Black", sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ff6a00;
+    text-align: center;
+    position: relative;
+}
+
+.title::after {
+    content: "";
+    display: block;
+    width: 800px;
+    height: 4px;
+    background-color: #d63612;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+.loading, .empty {
+    
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    width: 100%;
+    text-align: center;
+    margin: 40px 0;
 }
 
 
-.artigo h2 {
-    margin: 0;
-    font-size: 1.5em;
+.loading {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.empty {
+    font-size: 1.8rem;
+    color: #666;
+    font-family: "Impact", "Arial Black", sans-serif;
+    text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+    .artigoList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .artigoList {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .title::after {
+        width: 150px;
+    }
 }

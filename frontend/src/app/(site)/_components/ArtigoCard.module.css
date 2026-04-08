@@ -1,0 +1,69 @@
+.ArtigoCard {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+}
+
+.artigoLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.artigoImage {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.artigoName {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 16px;
+    letter-spacing: 0.04em;
+}
+
+.artigoCategory,
+.artigoBrand,
+.artigoYear {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 8px;
+}
+
+.artigoPrice {
+    font-size: 1.15rem;
+    color: #111;
+    margin-top: 12px;
+    font-weight: 800;
+}
+
+.ArtigoCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.artigoButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #d63612;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    text-decoration: none;
+    margin-top: 18px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.artigoButton:hover {
+    background-color: #b5290e;
+}

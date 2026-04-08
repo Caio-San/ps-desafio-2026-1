@@ -1,8 +1,42 @@
-.container {
-    aspect-ratio: 1200 / 400;
-}
 .banner {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 16 / 6;
+    overflow: hidden;
+}
+
+.mySwiper {
     width: 100%;
     height: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.bannerImage {
     object-fit: cover;
+    object-position: center;
+    filter: contrast(1.05) saturate(1.1) brightness(1.02);
+}
+
+
+.mySwiper :global(.swiper-pagination-bullet-active) {
+    background: #ff6a00;
+}
+
+.mySwiper :global(.swiper-button-next),
+.mySwiper :global(.swiper-button-prev) {
+    color: #ff6a00;
+    transform: scale(0.7); 
+}
+
+@media (max-width: 768px) {
+    .banner {
+        aspect-ratio: 4 / 3;
+    }
 }

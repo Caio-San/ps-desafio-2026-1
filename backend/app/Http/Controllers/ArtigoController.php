@@ -27,7 +27,7 @@ class ArtigoController extends Controller
 
     public function index(): JsonResponse
     {
-        $artigos = $this->artigo->all();
+        $artigos = $this->artigo->with('category')->get();
         return response()->json($artigos, Response::HTTP_OK);
     }
 
@@ -97,7 +97,7 @@ class ArtigoController extends Controller
 
         $artigo->update($data);
 
-        return response()->json($artigo,  Response::HTTP_OK);
+        return response()->json($artigo, Response::HTTP_OK);
     }
 
     /**

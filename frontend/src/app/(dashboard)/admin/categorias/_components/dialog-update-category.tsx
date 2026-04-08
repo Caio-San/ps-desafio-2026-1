@@ -13,8 +13,9 @@ import { updateCategory } from '@/actions/category'
 import { filterFormData } from '@/services/filter-form-data'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/components/use-toast'
-import { categoryType } from '@/types/category'
+import { categories } from '@/types/categories'
 import { ResponseErrorType, api } from '@/services/api'
+import SkeletonFormFieldsCategory from './form-fields-category'
 
 interface DialogUpdateCategoryProps {
   id: string
@@ -25,17 +26,20 @@ export function DialogUpdateCategory({
   id,
   children,
 }: DialogUpdateCategoryProps) {
-  const [category, setCategory] = useState<categoryType | null>(null)
+  const [category, setCategory] = useState<categories | null>(null)
   const [open, setOpen] = useState<boolean>()
   const [error, setError] = useState<ResponseErrorType | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
+    if(!open ) return 
+    setCategory(null)
+
     const requestData = async () => {
-      const { response } = null // requisicao para api
+      const { response, error } = await api('GET', `/category/${id}`)
 
       if (response) {
-        setCategory(response)
+        setCategory(response as categories)
       } else {
         setCategory(null)
         toast({
@@ -61,11 +65,11 @@ export function DialogUpdateCategory({
     if (error) {
       setError(error)
       toast({
-        title: 'Não foi possível editar a categoria!',
+        title: 'Não foi possível atualizar a categoria!',
       })
     } else {
       toast({
-        title: 'Categoria editado com sucesso!',
+        title: 'Categoria atualizada com sucesso!',
       })
       setOpen(false)
     }
