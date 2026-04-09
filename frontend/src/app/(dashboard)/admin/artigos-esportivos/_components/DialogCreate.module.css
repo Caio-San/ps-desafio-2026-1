@@ -1,4 +1,4 @@
-/* Overlay: O fundo escuro atrás do modal */
+
 .overlay {
     background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
@@ -10,7 +10,7 @@
     backdrop-filter: blur(3px);
 }
 
-/* ModalContent: A caixa branca do formulário */
+
 .modalContent {
     background-color: #ffffff;
     border-radius: 12px;
@@ -30,7 +30,7 @@
 
 .title {
     font-size: 1.6rem;
-    color: #3d1400; /* Marrom escuro */
+    color: #3d1400; 
     margin: 0;
 }
 
@@ -40,7 +40,6 @@
     margin-top: 5px;
 }
 
-/* Botões */
 .footer {
     display: flex;
     justify-content: flex-end;
@@ -64,7 +63,7 @@
 
 .btnSave {
     padding: 10px 20px;
-    background-color: #ff6a00; /* Laranja */
+    background-color: #ff6a00;
     color: white;
     border: none;
     border-radius: 6px;
