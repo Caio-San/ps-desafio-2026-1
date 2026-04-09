@@ -35,7 +35,7 @@ export default function FormFieldsSportsItem({
   const [updateImage, setUpdateImage] = useState<string | undefined>()
   const [categories, setCategories] = useState<categories[]>([])
   const [selectedCategory, setSelectedCategory] = useState<categories | null>(
-    sportsItem?.category_id ?? null
+    sportsItem?.category ?? null
   )
 
 
@@ -119,7 +119,7 @@ export default function FormFieldsSportsItem({
             value={selectedCategory?.id}
           />
           <Select 
-            value={selectedCategory?.id || sportsItem?.category_id?.id}
+            value={selectedCategory?.id || sportsItem?.category?.id}
             onValueChange={(value) => setSelectedCategory(categories.find((category) => category.id === value) || null)}
             disabled={pending || readOnly}
           >

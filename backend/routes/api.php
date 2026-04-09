@@ -23,13 +23,12 @@ Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::post("/artigo", [\App\Http\Controllers\ArtigoController::class, 'store']);
     Route::post("/artigo/{id}", [\App\Http\Controllers\ArtigoController::class, 'update']);
     
-    
 });
 
 Route::get("/category", [\App\Http\Controllers\CategoryController::class, 'index']);
 Route::get("/category/{id}", [\App\Http\Controllers\CategoryController::class, 'show']);
 
-
+Route::post("/artigo/{id}", [\App\Http\Controllers\ArtigoController::class, 'buy']);
 
 Route::get("/artigo", [\App\Http\Controllers\ArtigoController::class, 'index']);
 

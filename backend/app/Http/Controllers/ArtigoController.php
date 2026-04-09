@@ -110,4 +110,17 @@ class ArtigoController extends Controller
         $artigo->delete();
         return response()->json(["message" => "Artigo deleted"]);
     }
+
+ 
+    public function buy($id): JsonResponse
+    {
+        $artigo = $this->artigo->findOrFail($id);
+        if ($artigo->amount > 0) {
+            $artigo->decrement('amount');
+        } else {
+            return response()->json(["message" => "Artigo out of stock"], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json($artigo, Response::HTTP_OK);
+    }
 }

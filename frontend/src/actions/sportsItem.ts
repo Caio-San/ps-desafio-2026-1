@@ -34,3 +34,15 @@ export async function destroySportsItem(id: string) {
 
     return JSON.stringify(res);
 }
+
+export async function buyItem(id: string) {
+    const { response, error } = await api('POST', `/artigo/${id}`)
+
+    if (error) {
+        return { error: error.message || "Erro ao processar compra." }
+    }
+
+    revalidatePath('/')
+    
+    return { success: true }
+}
