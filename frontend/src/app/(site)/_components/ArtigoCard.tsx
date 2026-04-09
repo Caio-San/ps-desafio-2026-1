@@ -25,7 +25,9 @@ export default function ArtigoCard({ ...sportItem }: sportsItemType) {
                 toast({
                     title: "Sucesso!",
                     description: `${sportItem.name} comprado com sucesso.`,
+                    
                 });
+                window.location.reload(); 
             } else {
                 toast({
                     title: "Erro na compra",

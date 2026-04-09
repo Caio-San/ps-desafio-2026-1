@@ -13,7 +13,7 @@ export default function Artigo({ categoryId }: ArtigoProps) {
     const [allSportItems, setAllSportItems] = useState<sportsItemType[]>([]); 
     const [filteredItems, setFilteredItems] = useState<sportsItemType[]>([]);
     const [loading, setLoading] = useState(true);
-
+    
     useEffect(() => {
         async function getSportItems() {
             const { response, error } = await api('GET', '/artigo');
